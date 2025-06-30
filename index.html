@@ -1,11 +1,10 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Thai Alphabet Flashcards</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
   <!-- MENU SCREEN -->
@@ -14,15 +13,15 @@
     <p>Select what to study:</p>
     <div class="checkbox-group">
       <label class="checkbox-label">
-        <input type="checkbox" id="chkConsonants" checked>
+        <input type="checkbox" id="chkConsonants" checked />
         <span>Consonants</span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="chkVowels">
+        <input type="checkbox" id="chkVowels" />
         <span>Vowels</span>
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="chkObsolete">
+        <input type="checkbox" id="chkObsolete" />
         <span>Obsolete</span>
       </label>
     </div>
@@ -30,21 +29,24 @@
   </div>
 
   <!-- FLASHCARD SCREEN -->
-  <div id="app" class="container" style="display:none;">
-    <h1>Thai Alphabet</h1>
+<div id="app" class="container" style="display:none; position: relative;">
+  <h1>Thai Alphabet</h1>
 
-    <div id="letter">?</div>
-    <button onclick="reveal()">Reveal</button>
-    <div id="pronunciation">?</div>
+  <div id="letter">?</div>
+  <div id="pronunciation">?</div>
 
-    <div class="controls" style="display: flex; gap: 10px; justify-content: center; margin: 15px 0;">
-      <button onclick="markWrong()">❌ Wrong</button>
-      <button onclick="markCorrect()">✅ Correct</button>
-    </div>
+  <button onclick="speakCurrentCard()" class="speak-button">🔊 Speak</button>
 
-    <p id="score">Correct: 0 | Wrong: 0 | Cards Left: 0</p>
-    <button onclick="goBack()" style="margin-top: 20px;">⬅ Back</button>
+  <div class="controls" style="display: flex; gap: 10px; justify-content: center; margin: 15px 0;">
+    <button onclick="markWrong()">❌ Wrong</button>
+    <button onclick="markCorrect()">✅ Correct</button>
   </div>
+
+  <p id="score">Correct: 0 | Wrong: 0 | Cards Left: 0</p>
+
+  <button onclick="goBack()" class="back-button" aria-label="Back">⬅</button>
+  <button onclick="reveal()" class="reveal-button">Reveal</button>
+</div>
 
   <script src="script.js"></script>
 </body>

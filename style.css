@@ -1,13 +1,13 @@
+/* style.css */
+
 body {
   font-family: sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
   background: #f0f0f0;
   margin: 0;
-  padding: 1em;
-  box-sizing: border-box;
 }
 
 .container {
@@ -16,46 +16,119 @@ body {
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   text-align: center;
-  width: 100%;
-  max-width: 500px;
-  box-sizing: border-box;
+  max-width: 400px;
+  width: 90vw;
+  position: relative;
 }
 
 #letter {
-  font-size: 15vw;
-  max-font-size: 80px;
+  font-size: clamp(40px, 15vw, 80px);
   margin: 20px 0;
+  line-height: 1;
+  padding-bottom: 10px;
 }
 
 #pronunciation {
-  font-size: 5vw;
-  max-font-size: 24px;
-  margin: 20px 0;
+  font-size: clamp(16px, 5vw, 24px);
+  margin: 20px 0 30px 0;
   color: #555;
+  line-height: 1;
 }
 
+/* Add margin below score so it’s not overlapped by buttons */
+#score {
+  margin-bottom: 60px; /* enough space before bottom buttons */
+}
+
+/* Unified button styles */
 button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  background: #3498db;
-  color: white;
+  padding: 12px 24px;
+  font-size: 18px;
   border-radius: 8px;
+  min-width: 100px;
   cursor: pointer;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
 }
 
 button:hover {
-  background: #2980b9;
+  background-color: #2980b9;
 }
 
+/* Smaller Back button */
+.back-button {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 8px 12px;
+  font-size: 24px;  /* larger arrow */
+  min-width: auto;  /* no fixed width */
+  width: 40px;      /* square-ish */
+  height: 40px;
+  border-radius: 50%;  /* make it round */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #2980b9;
+}
+
+/* Reveal button normal size, centered bottom */
+.reveal-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  font-size: 18px;
+  min-width: 100px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+/* Speak button, same style as other big buttons */
+.speak-button {
+  padding: 12px 24px;
+  font-size: 18px;
+  min-width: 100px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  margin: 10px auto 20px auto;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.speak-button:hover {
+  background-color: #2980b9;
+}
+
+/* Controls container for Correct/Wrong buttons */
 .controls {
   display: flex;
-  flex-direction: row;
   gap: 10px;
   justify-content: center;
-  flex-wrap: wrap;
-  margin: 15px 0;
+  margin: 15px 0 50px 0; /* margin bottom to push content above buttons */
+}
+
+/* Styles for the menu checkboxes */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
 }
 
 .checkbox-group {
@@ -80,21 +153,23 @@ button:hover {
   cursor: pointer;
 }
 
-@media (max-width: 480px) {
-  #letter {
-    font-size: 20vw;
-  }
-
-  #pronunciation {
-    font-size: 6vw;
+/* Responsive adjustments */
+@media (max-width: 450px) {
+  .container {
+    max-width: 95vw;
   }
 
   button {
-    font-size: 1rem;
-    padding: 10px;
+    font-size: 16px;
+    padding: 10px 20px;
+    min-width: 80px;
   }
 
-  .controls {
-    flex-direction: column;
+  #letter {
+    font-size: clamp(30px, 20vw, 70px);
+  }
+
+  #pronunciation {
+    font-size: clamp(14px, 6vw, 20px);
   }
 }
