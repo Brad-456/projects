@@ -57,7 +57,7 @@
     <h1>Thai Alphabet</h1>
     <div id="letter">?</div>
     <div id="pronunciation">?</div>
-    <button onclick="speakCurrentCard()">🔊 Speak</button>
+    <button id="speakBtn" onclick="speakCurrentCard()">🔊 Speak</button>
 
     <div class="controls" style="display: flex; gap: 10px; justify-content: center; margin: 15px 0;">
       <button onclick="markWrong()">❌ Wrong</button>
@@ -65,7 +65,7 @@
     </div>
 
     <p id="score">Correct: 0 | Wrong: 0 | Cards Left: 0</p>
-    <button class="reveal-button" onclick="reveal()">Reveal</button>
+    <button id="revealBtn" class="reveal-button" onclick="reveal()">Reveal</button>
     <button onclick="goBack()" class="back-button" aria-label="Back">⬅</button>
   </div>
 

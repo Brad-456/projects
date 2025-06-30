@@ -86,27 +86,32 @@ function startApp() {
   const useConsonants = document.getElementById("chkConsonants").checked;
   const useVowels = document.getElementById("chkVowels").checked;
   const useObsolete = document.getElementById("chkObsolete").checked;
-  const groupSelect = document.getElementById("groupSelect");
 
   let selected = [];
 
-  if (useConsonants) {
+  // Collect all checked group checkboxes regardless of main consonants checkbox state
   const selectedGroups = Array.from(document.querySelectorAll(".group-checkbox:checked")).map(input => input.value);
   let selectedGroupLetters = new Set();
-  selectedGroups.forEach(group => {
-    consonantGroups[group].forEach(letter => selectedGroupLetters.add(letter));
-  });
 
-  const filteredConsonants = consonants.filter(c => {
-    const includeObsolete = useObsolete || !c.obsolete;
-    if (selectedGroupLetters.size > 0) {
-      return selectedGroupLetters.has(c.letter) && includeObsolete;
+  if (useConsonants || selectedGroups.length > 0) {
+    selectedGroups.forEach(group => {
+      consonantGroups[group].forEach(letter => selectedGroupLetters.add(letter));
+    });
+
+    // If main consonants checked but no subgroups checked, treat as all consonants
+    if (useConsonants && selectedGroupLetters.size === 0) {
+      consonants.forEach(c => {
+        if (useObsolete || !c.obsolete) selectedGroupLetters.add(c.letter);
+      });
     }
-    return includeObsolete;
-  });
 
-  selected = selected.concat(filteredConsonants);
-}
+    const filteredConsonants = consonants.filter(c => {
+      const includeObsolete = useObsolete || !c.obsolete;
+      return selectedGroupLetters.has(c.letter) && includeObsolete;
+    });
+
+    selected = selected.concat(filteredConsonants);
+  }
 
   if (useVowels) {
     selected = selected.concat(vowels);
@@ -136,8 +141,17 @@ function showCard() {
     document.getElementById("letter").textContent = "🎉";
     document.getElementById("pronunciation").textContent = "All correct! Well done.";
     document.querySelector(".controls").style.display = "none";
+
+    // Hide reveal and speak buttons when done
+    document.getElementById("revealBtn").style.display = "none";
+    document.getElementById("speakBtn").style.display = "none";
+
     return;
   }
+
+  // Show the buttons again when cards remain
+  document.getElementById("revealBtn").style.display = "inline-block";
+  document.getElementById("speakBtn").style.display = "inline-block";
 
   currentIndex = 0;
   document.getElementById("letter").textContent = deck[currentIndex].letter;
@@ -201,23 +215,43 @@ function shuffleArray(array) {
 
 // ---------- EVENT LISTENERS ----------
 
-document.addEventListener("keydown", function(event) {
-  if (document.getElementById("app").style.display !== "block") return;
+// Sync consonants and group checkboxes
+document.addEventListener("DOMContentLoaded", () => {
+  const chkConsonants = document.getElementById("chkConsonants");
+  const groupCheckboxes = document.querySelectorAll(".group-checkbox");
 
-  if (event.code === "Space") {
-    event.preventDefault();
-    if (!isRevealed) {
-      reveal();
+  // When main consonants is changed
+  chkConsonants.addEventListener("change", () => {
+    if (chkConsonants.checked) {
+      groupCheckboxes.forEach(cb => cb.checked = true);
+      document.getElementById("groupContainer").style.display = "block";
     } else {
-      markCorrect();
+      groupCheckboxes.forEach(cb => cb.checked = false);
+      document.getElementById("groupContainer").style.display = "none";
     }
-  }
+  });
 
-  if (event.key.toLowerCase() === "q") {
-    markWrong();
-  }
-});
+  // When any subgroup checkbox changes
+  groupCheckboxes.forEach(cb => {
+    cb.addEventListener("change", () => {
+      const anyGroupChecked = [...groupCheckboxes].some(sub => sub.checked);
+      if (!anyGroupChecked) {
+        // If no subgroup checked, uncheck consonants and hide groups
+        chkConsonants.checked = false;
+        document.getElementById("groupContainer").style.display = "none";
+      } else {
+        // If all subgroups checked, check consonants
+        if ([...groupCheckboxes].every(sub => sub.checked)) {
+          chkConsonants.checked = true;
+        } else {
+          chkConsonants.checked = false;
+        }
+        // Keep group container visible as long as at least one subgroup checked
+        document.getElementById("groupContainer").style.display = "block";
+      }
+    });
+  });
 
-document.getElementById("chkConsonants").addEventListener("change", function () {
-  document.getElementById("groupContainer").style.display = this.checked ? "block" : "none";
+  // Initialize display on load
+  document.getElementById("groupContainer").style.display = chkConsonants.checked ? "block" : "none";
 });
