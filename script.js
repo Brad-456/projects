@@ -1,6 +1,5 @@
-// script.js
+// ---------- DATA SETUP ----------
 
-// Thai Alphabet Data (Consonants & Vowels)
 const consonants = [
   { letter: "ก", pronunciation: "gaw gai (chicken)", speak: "ก ไก่", obsolete: false },
   { letter: "ข", pronunciation: "khaw khai (egg)", speak: "ข ไข่", obsolete: false },
@@ -62,13 +61,15 @@ const vowels = [
   { letter: "ใ", pronunciation: "ai (short)", speak: "ใอ", obsolete: false }
 ];
 
-// Viewport fix for responsive layout
-document.addEventListener("DOMContentLoaded", () => {
-  const meta = document.createElement('meta');
-  meta.name = "viewport";
-  meta.content = "width=device-width, initial-scale=1.0";
-  document.head.appendChild(meta);
-});
+// ---------- CONSONANT GROUPS ----------
+
+const consonantGroups = {
+  group1: ["ก", "ข", "ค", "ง", "จ", "ช"],
+  group2: ["ฌ", "ซ", "ฉ", "ญ", "ฃ", "ฅ"],
+  group3: ["ฎ", "ฏ", "ด", "ต", "ถ", "ท"],
+  group4: ["บ", "ป", "ผ", "ฝ", "พ", "ฟ", "ภ"],
+  group5: ["ม", "ย", "ร", "ล", "ว", "ศ", "ษ", "ส", "ห", "ฮ", "อ", "ฬ"]
+};
 
 // ---------- STATE & VARIABLES ----------
 
@@ -77,7 +78,6 @@ let deck = [];
 let currentIndex = 0;
 let correctCount = 0;
 let wrongCount = 0;
-let historyStack = [];
 let isRevealed = false;
 
 // ---------- STARTUP ----------
@@ -86,18 +86,27 @@ function startApp() {
   const useConsonants = document.getElementById("chkConsonants").checked;
   const useVowels = document.getElementById("chkVowels").checked;
   const useObsolete = document.getElementById("chkObsolete").checked;
+  const groupSelect = document.getElementById("groupSelect");
 
   let selected = [];
 
-  if (useConsonants || useObsolete) {
-    if (useConsonants && useObsolete) {
-      selected = selected.concat(consonants);
-    } else if (useConsonants) {
-      selected = selected.concat(consonants.filter(c => !c.obsolete));
-    } else if (useObsolete) {
-      selected = selected.concat(consonants.filter(c => c.obsolete));
+  if (useConsonants) {
+  const selectedGroups = Array.from(document.querySelectorAll(".group-checkbox:checked")).map(input => input.value);
+  let selectedGroupLetters = new Set();
+  selectedGroups.forEach(group => {
+    consonantGroups[group].forEach(letter => selectedGroupLetters.add(letter));
+  });
+
+  const filteredConsonants = consonants.filter(c => {
+    const includeObsolete = useObsolete || !c.obsolete;
+    if (selectedGroupLetters.size > 0) {
+      return selectedGroupLetters.has(c.letter) && includeObsolete;
     }
-  }
+    return includeObsolete;
+  });
+
+  selected = selected.concat(filteredConsonants);
+}
 
   if (useVowels) {
     selected = selected.concat(vowels);
@@ -112,7 +121,6 @@ function startApp() {
   deck = shuffleArray([...allCards]);
   correctCount = 0;
   wrongCount = 0;
-  historyStack = [];
 
   document.getElementById("menu").style.display = "none";
   document.getElementById("app").style.display = "block";
@@ -139,36 +147,22 @@ function showCard() {
 }
 
 function reveal() {
-  const card = deck[currentIndex];
-  document.getElementById("pronunciation").textContent = card.pronunciation;
+  document.getElementById("pronunciation").textContent = deck[currentIndex].pronunciation;
   speakCurrentCard();
-}
-
-function speak(text) {
-  if ('speechSynthesis' in window) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'th-TH';
-    window.speechSynthesis.speak(utterance);
-  }
+  isRevealed = true;
 }
 
 function speakCurrentCard() {
-  const card = deck[currentIndex];
-  if (!card || !card.speak) return;
-
-  const utterance = new SpeechSynthesisUtterance(card.speak);
-
-  const voices = window.speechSynthesis.getVoices();
-  const thaiVoice = voices.find(v => v.lang === "th-TH");
-  if (thaiVoice) utterance.voice = thaiVoice;
+  if (!window.speechSynthesis) return;
 
   window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(deck[currentIndex].speak || deck[currentIndex].letter);
+  utterance.lang = "th-TH";
   window.speechSynthesis.speak(utterance);
 }
 
 function markCorrect() {
-  if (deck.length === 0) return;
-  historyStack.push({ action: 'correct', card: deck[currentIndex], index: currentIndex });
   deck.splice(currentIndex, 1);
   correctCount++;
   updateScore();
@@ -176,32 +170,10 @@ function markCorrect() {
 }
 
 function markWrong() {
-  if (deck.length === 0) return;
-  historyStack.push({ action: 'wrong', card: deck[currentIndex], index: currentIndex });
   const wrongCard = deck.splice(currentIndex, 1)[0];
   wrongCount++;
   const randIndex = Math.floor(Math.random() * (deck.length + 1));
   deck.splice(randIndex, 0, wrongCard);
-  updateScore();
-  showCard();
-}
-
-function undoLastAction() {
-  if (historyStack.length === 0) return;
-  const lastAction = historyStack.pop();
-
-  if (lastAction.action === 'correct') {
-    deck.splice(lastAction.index, 0, lastAction.card);
-    correctCount = Math.max(0, correctCount - 1);
-  } else if (lastAction.action === 'wrong') {
-    const foundIndex = deck.findIndex(c => c.letter === lastAction.card.letter);
-    if (foundIndex !== -1) {
-      deck.splice(foundIndex, 1);
-      deck.splice(lastAction.index, 0, lastAction.card);
-    }
-    wrongCount = Math.max(0, wrongCount - 1);
-  }
-
   updateScore();
   showCard();
 }
@@ -227,32 +199,25 @@ function shuffleArray(array) {
   return array;
 }
 
-// ---------- KEYBOARD SHORTCUTS ----------
+// ---------- EVENT LISTENERS ----------
 
 document.addEventListener("keydown", function(event) {
   if (document.getElementById("app").style.display !== "block") return;
-
-  const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-  if ((isMac && event.metaKey && event.key.toLowerCase() === 'z') ||
-      (!isMac && event.ctrlKey && event.key.toLowerCase() === 'z')) {
-    event.preventDefault();
-    undoLastAction();
-    return;
-  }
 
   if (event.code === "Space") {
     event.preventDefault();
     if (!isRevealed) {
       reveal();
-      isRevealed = true;
     } else {
       markCorrect();
-      isRevealed = false;
     }
   }
 
   if (event.key.toLowerCase() === "q") {
     markWrong();
-    isRevealed = false;
   }
+});
+
+document.getElementById("chkConsonants").addEventListener("change", function () {
+  document.getElementById("groupContainer").style.display = this.checked ? "block" : "none";
 });

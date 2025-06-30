@@ -35,6 +35,21 @@ body {
   line-height: 1;
 }
 
+/* Updated checkbox group spacing */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;      /* reduced gap */
+  margin: 6px 0; /* reduced margin */
+  padding: 0;
+}
+
+#groupContainer {
+  margin-left: 20px;
+  margin-top: 4px; /* slight top margin for nested group */
+  padding-top: 0;
+}
+
 /* Add margin below score so it’s not overlapped by buttons */
 #score {
   margin-bottom: 60px; /* enough space before bottom buttons */
@@ -129,13 +144,6 @@ button:hover {
   flex-direction: column;
   align-items: center;
   padding: 40px;
-}
-
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin: 20px 0;
 }
 
 .checkbox-label {
