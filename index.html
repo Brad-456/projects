@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thai Alphabet Flashcards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- MENU SCREEN -->
+  <div id="menu" class="container">
+    <h1>Thai Alphabet Flashcards</h1>
+    <p>Select what to study:</p>
+    <div class="checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" id="chkConsonants" checked>
+        <span>Consonants</span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="chkVowels">
+        <span>Vowels</span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="chkObsolete">
+        <span>Obsolete</span>
+      </label>
+    </div>
+    <button onclick="startApp()">Start</button>
+  </div>
+
+  <!-- FLASHCARD SCREEN -->
+  <div id="app" class="container" style="display:none;">
+    <h1>Thai Alphabet</h1>
+
+    <div id="letter">?</div>
+    <button onclick="reveal()">Reveal</button>
+    <div id="pronunciation">?</div>
+
+    <div class="controls" style="display: flex; gap: 10px; justify-content: center; margin: 15px 0;">
+      <button onclick="markWrong()">❌ Wrong</button>
+      <button onclick="markCorrect()">✅ Correct</button>
+    </div>
+
+    <p id="score">Correct: 0 | Wrong: 0 | Cards Left: 0</p>
+    <button onclick="goBack()" style="margin-top: 20px;">⬅ Back</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
