@@ -1,12 +1,13 @@
-/* style.css */
 body {
   font-family: sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background: #f0f0f0;
   margin: 0;
+  padding: 1em;
+  box-sizing: border-box;
 }
 
 .container {
@@ -15,15 +16,20 @@ body {
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   text-align: center;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
 }
 
 #letter {
-  font-size: 72px;
+  font-size: 15vw;
+  max-font-size: 80px;
   margin: 20px 0;
 }
 
 #pronunciation {
-  font-size: 24px;
+  font-size: 5vw;
+  max-font-size: 24px;
   margin: 20px 0;
   color: #555;
 }
@@ -31,7 +37,7 @@ body {
 button {
   margin: 10px;
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 1rem;
   border: none;
   background: #3498db;
   color: white;
@@ -41,6 +47,15 @@ button {
 
 button:hover {
   background: #2980b9;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 15px 0;
 }
 
 .checkbox-group {
@@ -63,4 +78,23 @@ button:hover {
   height: 20px;
   accent-color: #3498db;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  #letter {
+    font-size: 20vw;
+  }
+
+  #pronunciation {
+    font-size: 6vw;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
 }
