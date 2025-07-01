@@ -1,71 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Thai Alphabet Flashcards</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-<!-- MENU SCREEN -->
-<div id="menu" class="container">
-  <h1>Thai Alphabet Flashcards</h1>
-  <p>Select what to study:</p>
-  <div class="checkbox-group">
-    <label class="checkbox-label">
-      <input type="checkbox" id="chkConsonants" checked>
-      <span>Consonants</span>
-    </label>
+  <!-- MENU SCREEN -->
+  <div id="menu" class="container">
+    <h1>Thai Alphabet Flashcards</h1>
+    <p>Select what to study:</p>
+    <div class="checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" id="chkConsonants" checked />
+        <span>Consonants</span>
+      </label>
 
-<div id="groupContainer" style="display: block; margin-left: 20px; margin-top: 8px;">
-  <label class="checkbox-label">
-    <input type="checkbox" class="group-checkbox" value="group1" checked>
-    <span>ก, ข, ค, ง, จ, ช</span>
-  </label>
-  <label class="checkbox-label">
-    <input type="checkbox" class="group-checkbox" value="group2" checked>
-    <span>ฌ, ซ, ฉ, ญ, ฃ, ฅ</span>
-  </label>
-  <label class="checkbox-label">
-    <input type="checkbox" class="group-checkbox" value="group3" checked>
-    <span>ฎ, ฏ, ด, ต, ถ, ท</span>
-  </label>
-  <label class="checkbox-label">
-    <input type="checkbox" class="group-checkbox" value="group4" checked>
-    <span>บ, ป, ผ, ฝ, พ, ฟ, ภ</span>
-  </label>
-  <label class="checkbox-label">
-    <input type="checkbox" class="group-checkbox" value="group5" checked>
-    <span>ม, ย, ร, ล, ว, ศ, ษ, ส, ห, ฮ, อ, ฬ</span>
-  </label>
-</div>
+      <div
+        id="groupContainer"
+        style="display: block; margin-left: 20px; margin-top: 8px;"
+      >
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            class="group-checkbox"
+            value="group1"
+            checked
+          />
+          <span>ก, ข, ฃ, ค, ฅ, ฆ, ง</span>
+        </label>
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            class="group-checkbox"
+            value="group2"
+            checked
+          />
+          <span>จ, ฉ, ช, ซ, ฌ, ญ</span>
+        </label>
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            class="group-checkbox"
+            value="group3"
+            checked
+          />
+          <span>ฎ, ฏ, ฐ, ฑ, ฒ, ด, ต, ถ, ท, ธ, ณ, น</span>
+        </label>
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            class="group-checkbox"
+            value="group4"
+            checked
+          />
+          <span>บ, ป, ผ, ฝ, พ, ฟ, ภ</span>
+        </label>
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            class="group-checkbox"
+            value="group5"
+            checked
+          />
+          <span>ม, ย, ร, ล, ว, ศ, ษ, ส, ห, ฬ, อ, ฮ</span>
+        </label>
+      </div>
 
-    <label class="checkbox-label" style="margin-top: 10px;">
-      <input type="checkbox" id="chkVowels">
-      <span>Vowels</span>
-    </label>
-    <label class="checkbox-label">
-      <input type="checkbox" id="chkObsolete">
-      <span>Obsolete</span>
-    </label>
+      <!-- Main Vowels checkbox -->
+      <label class="checkbox-label" style="margin-top: 10px;">
+        <input type="checkbox" id="chkVowels" />
+        <span>Vowels</span>
+      </label>
+
+      <!-- Vowel groups container -->
+      <div
+        id="vowelGroupContainer"
+        style="margin-left: 20px; margin-top: 8px;"
+      >
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            class="vowel-group-checkbox"
+            value="group1"
+            checked
+          />
+          <span
+            >ะ, า, ิ, ี, ึ, ื, ุ, ู, เะ, เ, แะ, แ, โะ, โ, เอาะ, ออ, เออะ,
+            เออ</span
+          >
+        </label>
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            class="vowel-group-checkbox"
+            value="group2"
+            checked
+          />
+          <span
+            >เอียะ, เอีย, เอือะ, เอือ, อัวะ, อัว, อำ, ไอ, ใอ</span
+          >
+        </label>
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            class="vowel-group-checkbox"
+            value="group3"
+            checked
+          />
+          <span>ไม้ม่วน, เอา, ฤ, ฤๅ, ฦ, ฦๅ</span>
+        </label>
+      </div>
+
+      <label class="checkbox-label" style="margin-top: 10px;">
+        <input type="checkbox" id="chkObsolete" />
+        <span>Obsolete</span>
+      </label>
+    </div>
+    <button onclick="startApp()">Start</button>
   </div>
-  <button onclick="startApp()">Start</button>
-</div>
 
   <!-- FLASHCARD SCREEN -->
-  <div id="app" class="container" style="display:none;">
+  <div id="app" class="container" style="display: none;">
     <h1>Thai Alphabet</h1>
     <div id="letter">?</div>
     <div id="pronunciation">?</div>
     <button id="speakBtn" onclick="speakCurrentCard()">🔊 Speak</button>
 
-    <div class="controls" style="display: flex; gap: 10px; justify-content: center; margin: 15px 0;">
-      <button onclick="markWrong()">❌ Wrong</button>
-      <button onclick="markCorrect()">✅ Correct</button>
+    <div
+      class="controls"
+      style="display: flex; gap: 10px; justify-content: center; margin: 15px 0;"
+    >
+      <button
+        id="revealBtn"
+        class="flashcard-btn"
+        onclick="reveal()"
+      >
+       🔍 Reveal
+      </button>
+      <button
+        id="wrongBtn"
+        class="flashcard-btn"
+        style="display:none;"
+        onclick="markWrong()"
+      >
+        ❌ Wrong
+      </button>
+      <button
+        id="correctBtn"
+        class="flashcard-btn"
+        style="display:none;"
+        onclick="markCorrect()"
+      >
+        ✅ Correct
+      </button>
     </div>
 
     <p id="score">Correct: 0 | Wrong: 0 | Cards Left: 0</p>
-    <button id="revealBtn" class="reveal-button" onclick="reveal()">Reveal</button>
+
     <button onclick="goBack()" class="back-button" aria-label="Back">⬅</button>
   </div>
 

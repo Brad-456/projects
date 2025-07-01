@@ -47,28 +47,64 @@ const consonants = [
   { letter: "ฮ", pronunciation: "haw nok-huk (owl)", speak: "ฮ นกฮูก", obsolete: false }
 ];
 
+// FULL vowel list, including all you sent, grouped accordingly
 const vowels = [
-  { letter: "ะ", pronunciation: "a (short)", speak: "อะ", obsolete: false },
-  { letter: "า", pronunciation: "aa (long)", speak: "อา", obsolete: false },
-  { letter: "ิ", pronunciation: "i (short)", speak: "อิ", obsolete: false },
-  { letter: "ี", pronunciation: "ii (long)", speak: "อี", obsolete: false },
-  { letter: "ุ", pronunciation: "u (short)", speak: "อุ", obsolete: false },
-  { letter: "ู", pronunciation: "uu (long)", speak: "อู", obsolete: false },
-  { letter: "เ", pronunciation: "e (long)", speak: "เอ", obsolete: false },
-  { letter: "แ", pronunciation: "ae (long)", speak: "แอ", obsolete: false },
-  { letter: "โ", pronunciation: "o (long)", speak: "โอ", obsolete: false },
-  { letter: "ไ", pronunciation: "ai (short)", speak: "ไอ", obsolete: false },
-  { letter: "ใ", pronunciation: "ai (short)", speak: "ใอ", obsolete: false }
+  // Group 1
+  { letter: "ะ", pronunciation: "a (short)", speak: "อะ", group: "group1", obsolete: false },
+  { letter: "า", pronunciation: "aa (long)", speak: "อา", group: "group1", obsolete: false },
+  { letter: "ิ", pronunciation: "i (short)", speak: "อิ", group: "group1", obsolete: false },
+  { letter: "ี", pronunciation: "ii (long)", speak: "อี", group: "group1", obsolete: false },
+  { letter: "ึ", pronunciation: "ue (short)", speak: "อึ", group: "group1", obsolete: false },
+  { letter: "ื", pronunciation: "uue (long)", speak: "อือ", group: "group1", obsolete: false },
+  { letter: "ุ", pronunciation: "u (short)", speak: "อุ", group: "group1", obsolete: false },
+  { letter: "ู", pronunciation: "uu (long)", speak: "อู", group: "group1", obsolete: false },
+  { letter: "เะ", pronunciation: "e (short)", speak: "เอะ", group: "group1", obsolete: false },
+  { letter: "เ", pronunciation: "ee (long)", speak: "เอ", group: "group1", obsolete: false },
+  { letter: "แะ", pronunciation: "ae (short)", speak: "แอะ", group: "group1", obsolete: false },
+  { letter: "แ", pronunciation: "aae (long)", speak: "แอ", group: "group1", obsolete: false },
+  { letter: "โะ", pronunciation: "o (short)", speak: "โอะ", group: "group1", obsolete: false },
+  { letter: "โ", pronunciation: "oo (long)", speak: "โอ", group: "group1", obsolete: false },
+  { letter: "เอาะ", pronunciation: "aw (short)", speak: "เอาะ", group: "group1", obsolete: false },
+  { letter: "ออ", pronunciation: "aaw (long)", speak: "ออ", group: "group1", obsolete: false },
+  { letter: "เออะ", pronunciation: "ur (short)", speak: "เออะ", group: "group1", obsolete: false },
+  { letter: "เออ", pronunciation: "uur (long)", speak: "เออ", group: "group1", obsolete: false },
+
+  // Group 2
+  { letter: "เอียะ", pronunciation: "ia (short)", speak: "เอียะ", group: "group2", obsolete: false },
+  { letter: "เอีย", pronunciation: "iaa (long)", speak: "เอีย", group: "group2", obsolete: false },
+  { letter: "เอือะ", pronunciation: "uea (short)", speak: "เอือะ", group: "group2", obsolete: false },
+  { letter: "เอือ", pronunciation: "uuaa (long)", speak: "เอือ", group: "group2", obsolete: false },
+  { letter: "อัวะ", pronunciation: "ua (short)", speak: "อัวะ", group: "group2", obsolete: false },
+  { letter: "อัว", pronunciation: "uaa (long)", speak: "อัว", group: "group2", obsolete: false },
+  { letter: "อำ", pronunciation: "am (short)", speak: "อำ", group: "group2", obsolete: false },
+  { letter: "ไอ", pronunciation: "ai (short)", speak: "ไอ", group: "group2", obsolete: false },
+  { letter: "ใอ", pronunciation: "ai (short)", speak: "ใอ", group: "group2", obsolete: false },
+
+  // Group 3
+  { letter: "ไม้ม่วน", pronunciation: "ai (long)", speak: "ไม้ม่วน", group: "group3", obsolete: false },
+  { letter: "เอา", pronunciation: "ao", speak: "เอา", group: "group3", obsolete: false },
+  { letter: "ฤ", pronunciation: "rue (short)", speak: "ฤ", group: "group3", obsolete: false },
+  { letter: "ฤๅ", pronunciation: "ruue (long)", speak: "ฤๅ", group: "group3", obsolete: false },
+  { letter: "ฦ", pronunciation: "lue (short)", speak: "ฦ", group: "group3", obsolete: false },
+  { letter: "ฦๅ", pronunciation: "luue (long)", speak: "ฦๅ", group: "group3", obsolete: false }
 ];
 
 // ---------- CONSONANT GROUPS ----------
 
 const consonantGroups = {
-  group1: ["ก", "ข", "ค", "ง", "จ", "ช"],
-  group2: ["ฌ", "ซ", "ฉ", "ญ", "ฃ", "ฅ"],
-  group3: ["ฎ", "ฏ", "ด", "ต", "ถ", "ท"],
-  group4: ["บ", "ป", "ผ", "ฝ", "พ", "ฟ", "ภ"],
-  group5: ["ม", "ย", "ร", "ล", "ว", "ศ", "ษ", "ส", "ห", "ฮ", "อ", "ฬ"]
+  group1: ["ก", "ข", "ฃ", "ค", "ฅ", "ฆ", "ง"], // Velars + Nasal ง
+  group2: ["จ", "ฉ", "ช", "ซ", "ฌ", "ญ"],     // Palatals + Nasal ญ
+  group3: ["ฎ", "ฏ", "ฐ", "ฑ", "ฒ", "ด", "ต", "ถ", "ท", "ธ", "ณ", "น"], // Dentals
+  group4: ["บ", "ป", "ผ", "ฝ", "พ", "ฟ", "ภ"], // Labials
+  group5: ["ม", "ย", "ร", "ล", "ว", "ศ", "ษ", "ส", "ห", "ฬ", "อ", "ฮ"]  // Misc: liquids, sibilants, glottals
+};
+
+// ---------- VOWEL GROUPS ----------
+
+const vowelGroups = {
+  group1: ["ะ", "า", "ิ", "ี", "ึ", "ื", "ุ", "ู", "เะ", "เ", "แะ", "แ", "โะ", "โ", "เอาะ", "ออ", "เออะ", "เออ"],
+  group2: ["เอียะ", "เอีย", "เอือะ", "เอือ", "อัวะ", "อัว", "อำ", "ไอ", "ใอ"],
+  group3: ["ไม้ม่วน", "เอา", "ฤ", "ฤๅ", "ฦ", "ฦๅ"]
 };
 
 // ---------- STATE & VARIABLES ----------
@@ -80,6 +116,9 @@ let correctCount = 0;
 let wrongCount = 0;
 let isRevealed = false;
 
+// Undo stack to store previous actions for undo functionality
+let actionHistory = [];
+
 // ---------- STARTUP ----------
 
 function startApp() {
@@ -89,43 +128,82 @@ function startApp() {
 
   let selected = [];
 
-  // Collect all checked group checkboxes regardless of main consonants checkbox state
-  const selectedGroups = Array.from(document.querySelectorAll(".group-checkbox:checked")).map(input => input.value);
-  let selectedGroupLetters = new Set();
+  // --- Consonants selection ---
+  const selectedConsonantGroups = Array.from(
+    document.querySelectorAll(".group-checkbox:checked")
+  ).map(input => input.value);
 
-  if (useConsonants || selectedGroups.length > 0) {
-    selectedGroups.forEach(group => {
-      consonantGroups[group].forEach(letter => selectedGroupLetters.add(letter));
+  let selectedConsonantLetters = new Set();
+
+  // If any consonant groups are checked
+  if (selectedConsonantGroups.length > 0) {
+    selectedConsonantGroups.forEach(group => {
+      consonantGroups[group].forEach(letter => selectedConsonantLetters.add(letter));
     });
-
-    // If main consonants checked but no subgroups checked, treat as all consonants
-    if (useConsonants && selectedGroupLetters.size === 0) {
-      consonants.forEach(c => {
-        if (useObsolete || !c.obsolete) selectedGroupLetters.add(c.letter);
-      });
-    }
-
-    const filteredConsonants = consonants.filter(c => {
-      const includeObsolete = useObsolete || !c.obsolete;
-      return selectedGroupLetters.has(c.letter) && includeObsolete;
-    });
-
-    selected = selected.concat(filteredConsonants);
   }
 
-  if (useVowels) {
-    selected = selected.concat(vowels);
+  // If main checkbox is checked but no groups selected, use all consonants
+  if (useConsonants && selectedConsonantGroups.length === 0) {
+    consonants.forEach(c => {
+      if (useObsolete || !c.obsolete) selectedConsonantLetters.add(c.letter);
+    });
   }
 
+  const filteredConsonants = consonants.filter(c => {
+    const includeObsolete = useObsolete || !c.obsolete;
+    return selectedConsonantLetters.has(c.letter) && includeObsolete;
+  });
+
+  selected = selected.concat(filteredConsonants);
+
+  // --- Vowels selection ---
+  const selectedVowelGroups = Array.from(
+    document.querySelectorAll(".vowel-group-checkbox:checked")
+  ).map(input => input.value);
+
+  let selectedVowelLetters = new Set();
+
+  // If any vowel groups are checked
+  if (selectedVowelGroups.length > 0) {
+    selectedVowelGroups.forEach(group => {
+      vowelGroups[group].forEach(letter => selectedVowelLetters.add(letter));
+    });
+  }
+
+  // If main checkbox is checked but no groups selected, use all vowels
+  if (useVowels && selectedVowelGroups.length === 0) {
+    vowels.forEach(v => {
+      if (!v.obsolete) selectedVowelLetters.add(v.letter);
+    });
+  }
+
+  const filteredVowels = vowels.filter(v => selectedVowelLetters.has(v.letter));
+  selected = selected.concat(filteredVowels);
+
+  // --- Handle obsolete-only mode ---
+  if (useObsolete && !useConsonants && !useVowels &&
+      selectedConsonantGroups.length === 0 && selectedVowelGroups.length === 0) {
+    const onlyObsoleteConsonants = consonants.filter(c => c.obsolete);
+    selected = selected.concat(onlyObsoleteConsonants);
+  }
+
+  // ✅ Final validation: allow if any group is selected
   if (selected.length === 0) {
-    alert("Please select at least one category.");
-    return;
+    const anyConsonantGroupsSelected = selectedConsonantGroups.length > 0;
+    const anyVowelGroupsSelected = selectedVowelGroups.length > 0;
+
+    if (!anyConsonantGroupsSelected && !anyVowelGroupsSelected) {
+      alert("Please select at least one group.");
+      return;
+    }
   }
 
   allCards = selected.map(card => ({ ...card }));
   deck = shuffleArray([...allCards]);
   correctCount = 0;
   wrongCount = 0;
+  isRevealed = false;
+  actionHistory = [];
 
   document.getElementById("menu").style.display = "none";
   document.getElementById("app").style.display = "block";
@@ -133,6 +211,7 @@ function startApp() {
   updateScore();
   showCard();
 }
+
 
 // ---------- FLASHCARD LOGIC ----------
 
@@ -142,28 +221,64 @@ function showCard() {
     document.getElementById("pronunciation").textContent = "All correct! Well done.";
     document.querySelector(".controls").style.display = "none";
 
-    // Hide reveal and speak buttons when done
     document.getElementById("revealBtn").style.display = "none";
     document.getElementById("speakBtn").style.display = "none";
 
     return;
   }
 
-  // Show the buttons again when cards remain
   document.getElementById("revealBtn").style.display = "inline-block";
   document.getElementById("speakBtn").style.display = "inline-block";
 
-  currentIndex = 0;
+  // Do NOT reset currentIndex here, you want to keep it for next cards:
+  // currentIndex = 0;  <-- Remove this line if you have separate logic to advance currentIndex
+
   document.getElementById("letter").textContent = deck[currentIndex].letter;
   document.getElementById("pronunciation").textContent = "?";
   document.querySelector(".controls").style.display = "flex";
+
+  // Hide wrong and correct buttons when showing new card
+  document.getElementById('wrongBtn').style.display = 'none';
+  document.getElementById('correctBtn').style.display = 'none';
+
   isRevealed = false;
 }
 
 function reveal() {
-  document.getElementById("pronunciation").textContent = deck[currentIndex].pronunciation;
-  speakCurrentCard();
+  if (!deck[currentIndex]) return;
+
+  // Show the actual pronunciation
+  document.getElementById("pronunciation").textContent = deck[currentIndex].pronunciation || "?";
+
+  // Toggle buttons:
+  document.getElementById('revealBtn').style.display = 'none';
+  document.getElementById('wrongBtn').style.display = 'inline-block';
+  document.getElementById('correctBtn').style.display = 'inline-block';
+
   isRevealed = true;
+}
+
+function markCorrect() {
+  // Mark correct logic
+  nextCard();
+  resetButtons();
+}
+
+function markWrong() {
+  // Mark wrong logic
+  nextCard();
+  resetButtons();
+}
+
+function resetButtons() {
+  // Hide wrong/correct buttons, show reveal again
+  document.getElementById('revealBtn').style.display = 'inline-block';
+  document.getElementById('wrongBtn').style.display = 'none';
+  document.getElementById('correctBtn').style.display = 'none';
+}
+
+function nextCard() {
+  // Your existing logic to move to next card goes here
 }
 
 function speakCurrentCard() {
@@ -177,6 +292,12 @@ function speakCurrentCard() {
 }
 
 function markCorrect() {
+  actionHistory.push({
+    type: "correct",
+    card: deck[currentIndex],
+    index: currentIndex
+  });
+
   deck.splice(currentIndex, 1);
   correctCount++;
   updateScore();
@@ -185,6 +306,13 @@ function markCorrect() {
 
 function markWrong() {
   const wrongCard = deck.splice(currentIndex, 1)[0];
+
+  actionHistory.push({
+    type: "wrong",
+    card: wrongCard,
+    index: currentIndex
+  });
+
   wrongCount++;
   const randIndex = Math.floor(Math.random() * (deck.length + 1));
   deck.splice(randIndex, 0, wrongCard);
@@ -203,7 +331,30 @@ function goBack() {
   document.getElementById("menu").style.display = "block";
 }
 
-// ---------- UTILS ----------
+// ---------- UNDO FUNCTIONALITY ----------
+
+function undoLastAction() {
+  if (actionHistory.length === 0) return;
+
+  const lastAction = actionHistory.pop();
+
+  if (lastAction.type === "correct") {
+    deck.splice(lastAction.index, 0, lastAction.card);
+    correctCount = Math.max(0, correctCount - 1);
+  } else if (lastAction.type === "wrong") {
+    const currentPos = deck.findIndex(c => c.letter === lastAction.card.letter);
+    if (currentPos !== -1) {
+            deck.splice(currentPos, 1);
+    }
+    wrongCount = Math.max(0, wrongCount - 1);
+    deck.splice(lastAction.index, 0, lastAction.card);
+  }
+
+  updateScore();
+  showCard();
+}
+
+// ---------- HELPER FUNCTIONS ----------
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -213,45 +364,49 @@ function shuffleArray(array) {
   return array;
 }
 
-// ---------- EVENT LISTENERS ----------
+// ---------- CHECKBOX SYNC LOGIC ----------
 
-// Sync consonants and group checkboxes
-document.addEventListener("DOMContentLoaded", () => {
-  const chkConsonants = document.getElementById("chkConsonants");
-  const groupCheckboxes = document.querySelectorAll(".group-checkbox");
-
-  // When main consonants is changed
-  chkConsonants.addEventListener("change", () => {
-    if (chkConsonants.checked) {
-      groupCheckboxes.forEach(cb => cb.checked = true);
-      document.getElementById("groupContainer").style.display = "block";
-    } else {
-      groupCheckboxes.forEach(cb => cb.checked = false);
-      document.getElementById("groupContainer").style.display = "none";
-    }
+// Consonants master checkbox controls subgroups
+document.getElementById("chkConsonants").addEventListener("change", e => {
+  const checked = e.target.checked;
+  document.querySelectorAll(".group-checkbox").forEach(cb => {
+    cb.checked = checked;
   });
+});
 
-  // When any subgroup checkbox changes
-  groupCheckboxes.forEach(cb => {
-    cb.addEventListener("change", () => {
-      const anyGroupChecked = [...groupCheckboxes].some(sub => sub.checked);
-      if (!anyGroupChecked) {
-        // If no subgroup checked, uncheck consonants and hide groups
-        chkConsonants.checked = false;
-        document.getElementById("groupContainer").style.display = "none";
-      } else {
-        // If all subgroups checked, check consonants
-        if ([...groupCheckboxes].every(sub => sub.checked)) {
-          chkConsonants.checked = true;
-        } else {
-          chkConsonants.checked = false;
-        }
-        // Keep group container visible as long as at least one subgroup checked
-        document.getElementById("groupContainer").style.display = "block";
-      }
-    });
+// If any consonant subgroup checkbox changes, update master checkbox
+document.querySelectorAll(".group-checkbox").forEach(cb => {
+  cb.addEventListener("change", () => {
+    const allChecked = Array.from(document.querySelectorAll(".group-checkbox")).every(cb => cb.checked);
+    document.getElementById("chkConsonants").checked = allChecked;
   });
+});
 
-  // Initialize display on load
-  document.getElementById("groupContainer").style.display = chkConsonants.checked ? "block" : "none";
+// Vowels master checkbox controls vowel subgroups
+document.getElementById("chkVowels").addEventListener("change", e => {
+  const checked = e.target.checked;
+  document.querySelectorAll(".vowel-group-checkbox").forEach(cb => {
+    cb.checked = checked;
+  });
+});
+
+// If any vowel subgroup checkbox changes, update master checkbox
+document.querySelectorAll(".vowel-group-checkbox").forEach(cb => {
+  cb.addEventListener("change", () => {
+    const allChecked = Array.from(document.querySelectorAll(".vowel-group-checkbox")).every(cb => cb.checked);
+    document.getElementById("chkVowels").checked = allChecked;
+  });
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Tick main checkboxes
+  document.getElementById('chkConsonants').checked = true;
+  document.getElementById('chkVowels').checked = true;
+  document.getElementById('chkObsolete').checked = true;
+
+  // Tick all consonant groups
+  document.querySelectorAll('.group-checkbox').forEach(cb => cb.checked = true);
+
+  // Tick all vowel groups
+  document.querySelectorAll('.vowel-group-checkbox').forEach(cb => cb.checked = true);
 });

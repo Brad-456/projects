@@ -39,14 +39,14 @@ body {
 .checkbox-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;      /* reduced gap */
-  margin: 6px 0; /* reduced margin */
+  gap: 6px;
+  margin: 6px 0;
   padding: 0;
 }
 
 #groupContainer {
   margin-left: 20px;
-  margin-top: 4px; /* slight top margin for nested group */
+  margin-top: 4px;
   padding-top: 0;
 }
 
@@ -79,11 +79,11 @@ button:hover {
   bottom: 20px;
   left: 20px;
   padding: 8px 12px;
-  font-size: 24px;  /* larger arrow */
-  min-width: auto;  /* no fixed width */
-  width: 40px;      /* square-ish */
+  font-size: 24px;
+  min-width: auto;
+  width: 40px;
   height: 40px;
-  border-radius: 50%;  /* make it round */
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,17 +98,30 @@ button:hover {
   background-color: #2980b9;
 }
 
-/* Reveal button normal size, centered bottom */
-.reveal-button {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Controls container for Correct/Wrong/Reveal buttons */
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 15px 0 50px 0; /* keep space below buttons */
+}
+
+/* Shared style for Reveal, Wrong, Correct buttons */
+.flashcard-btn {
   padding: 12px 24px;
   font-size: 18px;
   min-width: 100px;
   box-sizing: border-box;
   border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.flashcard-btn:hover {
+  background-color: #2980b9;
 }
 
 /* Speak button, same style as other big buttons */
@@ -130,14 +143,6 @@ button:hover {
   background-color: #2980b9;
 }
 
-/* Controls container for Correct/Wrong buttons */
-.controls {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 15px 0 50px 0; /* margin bottom to push content above buttons */
-}
-
 /* Styles for the menu checkboxes */
 .menu-container {
   display: flex;
@@ -152,6 +157,7 @@ button:hover {
   gap: 10px;
   font-size: 1.2rem;
   cursor: pointer;
+  text-align: left;
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -159,6 +165,16 @@ button:hover {
   height: 20px;
   accent-color: #3498db;
   cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox-label span {
+  display: inline-block;
+  white-space: normal;
+  line-height: 1.3;
+  word-break: break-word;
+  text-align: left;
+  width: 100%;
 }
 
 /* Responsive adjustments */
