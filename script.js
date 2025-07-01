@@ -296,13 +296,16 @@ function nextCard() {
 function speakCurrentCard() {
   if (!window.speechSynthesis) return;
 
+  // Cancel any ongoing speech before starting new one
   window.speechSynthesis.cancel();
 
+  // Create the utterance
   const utterance = new SpeechSynthesisUtterance(deck[currentIndex].speak || deck[currentIndex].letter);
   utterance.lang = "th-TH";
+
+  // Speak inside user click event
   window.speechSynthesis.speak(utterance);
 }
-
 function markCorrect() {
   actionHistory.push({
     type: "correct",
