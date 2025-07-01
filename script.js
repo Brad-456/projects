@@ -293,17 +293,41 @@ function nextCard() {
   // Your existing logic to move to next card goes here
 }
 
+// Unlock speech synthesis on first user interaction (silent utterance)
+function unlockSpeechSynthesis() {
+  if (!window.speechSynthesis) return;
+  const utterance = new SpeechSynthesisUtterance("");
+  utterance.volume = 0;
+  window.speechSynthesis.speak(utterance);
+}
+
 function speakCurrentCard() {
   if (!window.speechSynthesis) return;
 
-  // Cancel any ongoing speech before starting new one
+  // Unlock speech synthesis just before speaking (in case not done)
+  unlockSpeechSynthesis();
+
+  const speakBtn = document.getElementById('speakBtn');
+
+  // Cancel ongoing speech
   window.speechSynthesis.cancel();
 
-  // Create the utterance
   const utterance = new SpeechSynthesisUtterance(deck[currentIndex].speak || deck[currentIndex].letter);
   utterance.lang = "th-TH";
 
-  // Speak inside user click event
+  // Disable button immediately on click
+  speakBtn.disabled = true;
+
+  utterance.onend = () => {
+    // Re-enable button when speech ends
+    speakBtn.disabled = false;
+  };
+
+  utterance.onerror = () => {
+    // Re-enable button on error as well
+    speakBtn.disabled = false;
+  };
+
   window.speechSynthesis.speak(utterance);
 }
 function markCorrect() {
@@ -435,3 +459,8 @@ function updateTimerDisplay() {
   const seconds = Math.floor((elapsedMs % 60000) / 1000);
   document.getElementById("timer").textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
+
+// Unlock speech on first touchstart (iPhone needs this)
+window.addEventListener('touchstart', () => {
+  unlockSpeechSynthesis();
+}, { once: true });
