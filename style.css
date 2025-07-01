@@ -52,7 +52,15 @@ body {
 
 /* Add margin below score so it’s not overlapped by buttons */
 #score {
-  margin-bottom: 60px; /* enough space before bottom buttons */
+  margin-bottom: 10px; /* reduced from 60px */
+  font-size: 16px;
+  text-align: center;
+}
+
+#timer {
+  margin-top: 0;
+  font-size: 16px;
+  text-align: center;
 }
 
 /* Unified button styles */

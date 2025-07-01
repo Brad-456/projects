@@ -115,6 +115,8 @@ let currentIndex = 0;
 let correctCount = 0;
 let wrongCount = 0;
 let isRevealed = false;
+let startTime = null;
+let timerInterval = null;
 
 // Undo stack to store previous actions for undo functionality
 let actionHistory = [];
@@ -210,6 +212,9 @@ function startApp() {
 
   updateScore();
   showCard();
+
+  startTime = Date.now();
+  timerInterval = setInterval(updateTimerDisplay, 1000); // update every second
 }
 
 
@@ -223,6 +228,13 @@ function showCard() {
 
     document.getElementById("revealBtn").style.display = "none";
     document.getElementById("speakBtn").style.display = "none";
+
+    clearInterval(timerInterval);
+
+    const elapsedMs = Date.now() - startTime;
+    const minutes = Math.floor(elapsedMs / 60000);
+    const seconds = Math.floor((elapsedMs % 60000) / 1000);
+    document.getElementById("timer").textContent = `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
 
     return;
   }
@@ -329,6 +341,8 @@ function updateScore() {
 function goBack() {
   document.getElementById("app").style.display = "none";
   document.getElementById("menu").style.display = "block";
+  clearInterval(timerInterval);
+  document.getElementById("timer").textContent = "0:00";
 }
 
 // ---------- UNDO FUNCTIONALITY ----------
@@ -410,3 +424,11 @@ window.addEventListener('DOMContentLoaded', () => {
   // Tick all vowel groups
   document.querySelectorAll('.vowel-group-checkbox').forEach(cb => cb.checked = true);
 });
+
+function updateTimerDisplay() {
+  if (!startTime) return;
+  const elapsedMs = Date.now() - startTime;
+  const minutes = Math.floor(elapsedMs / 60000);
+  const seconds = Math.floor((elapsedMs % 60000) / 1000);
+  document.getElementById("timer").textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
